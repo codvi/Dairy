@@ -1,6 +1,7 @@
 const express = require('express');
 require('./conn/conn.js'); 
 const cors = require('cors');
+const __dirnam = path.resolve();
 const app = express();
 require('dotenv').config();
 
@@ -18,6 +19,10 @@ const aiRoute = require('./routes/aiRoute.js');
 const notificationRoutes = require('./routes/notificationRoutes.js');
 const adminRoutes = require('./routes/adminRoutes.js');
 
+app.use(express.static(path.join(__dirname, '/frontend/dist')));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
+  });
 app.use(farmerRoutes);  
 app.use(porductRouter);
 app.use(salesRouter); 
